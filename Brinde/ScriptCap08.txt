@@ -1,0 +1,342 @@
+CONNECT
+
+SET SERVEROUTPUT ON
+
+CREATE OR REPLACE PROCEDURE sp_saudacao IS
+BEGIN
+  DBMS_OUTPUT.put_line('Alo, Mundo!');
+END;
+/
+
+EXEC sp_saudacao;
+
+CREATE OR REPLACE PROCEDURE sp_saudacao2 IS
+  mensagem VARCHAR2(50) := 'Aprendizado de PL/SQL';
+BEGIN
+  DBMS_OUTPUT.put_line('Alo, Mundo!');
+  DBMS_OUTPUT.put_line(mensagem);
+END;
+/
+
+EXEC sp_saudacao2;
+
+CREATE OR REPLACE PROCEDURE sp_saudacao3 (nome IN VARCHAR2) IS
+  mensagem VARCHAR2(50) := 'Aprendizado de PL/SQL';
+BEGIN
+  DBMS_OUTPUT.put_line('Alo, Mundo!');
+  DBMS_OUTPUT.put_line(mensagem);
+  DBMS_OUTPUT.put_line('Seja bem vindo, ' || nome);
+END;
+/
+
+EXEC sp_saudacao3('Augusto Manzano');
+
+CREATE OR REPLACE PROCEDURE sp_decisao1(a IN REAL, b IN REAL) IS
+  x REAL;
+BEGIN 
+  x := a + b;
+  IF (x >= 10) THEN
+    DBMS_OUTPUT.put_line(X);
+  END IF;
+END;
+/
+
+EXEC sp_decisao1(5.5,4.5);
+
+EXEC sp_decisao1(5.5,6.5);
+
+EXEC sp_decisao1(4.5,4.5);
+
+CREATE OR REPLACE PROCEDURE sp_decisao2(Valor IN INT) IS
+  Resto INT;
+BEGIN 
+  Resto := MOD(Valor, 3);
+  IF (Resto = 0) THEN
+    DBMS_OUTPUT.put_line(Valor || ' e um valor divisível por 3');
+  ELSE
+    DBMS_OUTPUT.put_line(Valor || ' nao e um valor divisível por 3');
+  END IF;
+END;
+/
+
+EXEC sp_decisao2(4);
+
+EXEC sp_decisao2(9);
+
+CREATE OR REPLACE PROCEDURE sp_nome_mes IS
+  Valor INT;
+  Nome VARCHAR2(9);
+  Data DATE;
+BEGIN 
+  Data := CURRENT_DATE;
+  Valor := EXTRACT(MONTH FROM Data);
+  IF (Valor = 1) THEN
+    Nome := 'Janeiro';
+  ELSIF (Valor = 2) THEN
+    Nome := 'Fevereiro';
+  ELSIF (Valor = 3) THEN
+    Nome := 'Marco';
+  ELSIF (Valor = 4) THEN
+    Nome := 'Abril';
+  ELSIF (Valor = 5) THEN
+    Nome := 'Maio';
+  ELSIF (Valor = 6) THEN
+    Nome := 'Junho';
+  ELSIF (Valor = 7) THEN
+    Nome := 'Julho';
+  ELSIF (Valor = 8) THEN
+    Nome := 'Agosto';
+  ELSIF (Valor = 9) THEN
+    Nome := 'Setembro';
+  ELSIF (Valor = 10) THEN
+    Nome := 'Outubro';
+  ELSIF (Valor = 11) THEN
+    Nome := 'Novembro';
+  ELSIF (Valor = 12) THEN
+    Nome := 'Dezembro';
+  END IF;
+  DBMS_OUTPUT.put_line(Nome);
+END;
+/
+
+EXEC sp_nome_mes;
+
+CREATE OR REPLACE PROCEDURE sp_nome_mes2 IS
+  Valor INT;
+  Data DATE;
+BEGIN 
+  Data := CURRENT_DATE;
+  Valor := EXTRACT(MONTH FROM Data);
+  CASE Valor
+    WHEN  1 THEN DBMS_OUTPUT.PUT_LINE('Janeiro');
+    WHEN  2 THEN DBMS_OUTPUT.PUT_LINE('Fevereiro');
+    WHEN  3 THEN DBMS_OUTPUT.PUT_LINE('Marco');
+    WHEN  4 THEN DBMS_OUTPUT.PUT_LINE('Abril');
+    WHEN  5 THEN DBMS_OUTPUT.PUT_LINE('Maio');
+    WHEN  6 THEN DBMS_OUTPUT.PUT_LINE('Junho');
+    WHEN  7 THEN DBMS_OUTPUT.PUT_LINE('Julho');
+    WHEN  8 THEN DBMS_OUTPUT.PUT_LINE('Agosto');
+    WHEN  9 THEN DBMS_OUTPUT.PUT_LINE('Setembro');
+    WHEN 10 THEN DBMS_OUTPUT.PUT_LINE('Outubro');
+    WHEN 11 THEN DBMS_OUTPUT.PUT_LINE('Novembro');
+    WHEN 12 THEN DBMS_OUTPUT.PUT_LINE('Dezembro');
+  END CASE;
+END;
+/
+
+EXEC sp_nome_mes2;
+
+CREATE OR REPLACE PROCEDURE sp_dia_semana IS
+  Valor INT;
+  Data DATE;
+BEGIN 
+  Data := CURRENT_DATE;
+  Valor := TO_NUMBER(TO_CHAR(Data, 'D'));
+  CASE 
+    WHEN Valor = 1 THEN DBMS_OUTPUT.PUT_LINE('Domingo');
+    WHEN Valor = 2 THEN DBMS_OUTPUT.PUT_LINE('Segunda-feira');
+    WHEN Valor = 3 THEN DBMS_OUTPUT.PUT_LINE('Terca-feira');
+    WHEN Valor = 4 THEN DBMS_OUTPUT.PUT_LINE('Quarta-feira');
+    WHEN Valor = 5 THEN DBMS_OUTPUT.PUT_LINE('Quinta-feira');
+    WHEN Valor = 6 THEN DBMS_OUTPUT.PUT_LINE('Sexta-feira');
+    WHEN Valor = 7 THEN DBMS_OUTPUT.PUT_LINE('Sabado');
+  END CASE;
+END;
+/
+
+EXEC sp_dia_semana;
+
+CREATE OR REPLACE PROCEDURE sp_fat1(Valor IN INT) IS
+  Fator INT;
+  I INT;
+BEGIN
+  Fator := 1;
+  I := 1;
+  LOOP
+    Fator := Fator * I;
+    I := I + 1;
+    EXIT WHEN (I > Valor);
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE(Fator);
+END;
+/
+
+EXEC sp_fat1(5);
+
+CREATE OR REPLACE PROCEDURE sp_fat2(Valor IN INT) IS
+  Fator INT;
+  I INT;
+BEGIN
+  Fator := 1;
+  I := 1;
+  WHILE (I <= Valor) LOOP
+    Fator := Fator * I;
+    I := I + 1;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE(Fator);
+END;
+/
+
+EXEC sp_fat2(5);
+
+CREATE OR REPLACE PROCEDURE sp_fat3(Valor IN INT) IS
+  Fator INT;
+  I INT;
+BEGIN
+  Fator := 1;
+  FOR I IN 1..Valor LOOP
+    Fator := Fator * I;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE(Fator);
+END;
+/
+
+EXEC sp_fat3(5);
+
+CREATE OR REPLACE PROCEDURE sp_demite(Codigo IN INT) IS
+BEGIN
+  INSERT INTO morto 
+    SELECT CODFUN, NOME, DEPTO, FUNCAO, SALARIO, ADMISSAO, FILHOS, CPF 
+    FROM cadfun 
+    WHERE CODFUN = Codigo;
+  DELETE FROM cadfun WHERE CODFUN = Codigo;
+END;
+/
+
+EXEC sp_demite(24);
+
+DROP PROCEDURE sp_fat3;
+
+CREATE TABLE auditoria (
+  ACAO    VARCHAR2(9),
+  DATA    DATE,
+  CODIGO  NUMBER(3, 0)
+);
+
+CREATE OR REPLACE TRIGGER tr_auditor1 
+AFTER INSERT ON cadfun FOR EACH ROW
+BEGIN
+  INSERT INTO auditoria VALUES (
+    'Cadastrou', 
+    SYSDATE, 
+    :NEW.CODFUN
+  ;
+END;
+/
+
+INSERT INTO cadfun VALUES (
+  60,
+  'MARINALVA DA SILVA',
+  '3',
+  'PROGRAMADOR',
+  1200.00,
+  '19-10-2006',
+  0,
+  '50022255599'
+);
+
+CREATE OR REPLACE TRIGGER tr_auditor2 
+BEFORE UPDATE ON cadfun FOR EACH ROW
+BEGIN
+  INSERT INTO auditoria VALUES (
+    'Alterou', 
+    SYSDATE, 
+    :NEW.CODFUN
+  ;
+END;
+/
+
+UPDATE cadfun SET DEPTO = 5 WHERE CODFUN = 1;
+
+UPDATE cadfun SET CODFUN = 13 WHERE CODFUN = 12;
+
+SELECT * FROM auditoria;
+
+CREATE OR REPLACE TRIGGER tr_auditor3 
+BEFORE DELETE ON cadfun FOR EACH ROW
+BEGIN
+  INSERT INTO auditoria VALUES (
+    'Demitiu', 
+    SYSDATE, 
+    :OLD.CODFUN
+  ;
+END;
+/
+
+EXEC sp_demite(10);
+
+SELECT CODFUN, NOME FROM cadfun;
+
+SELECT CODFUN, NOME FROM morto WHERE CODFUN = 10;
+
+SELECT * FROM auditoria;
+
+CREATE TABLE audisalar (
+  DATA    DATE,
+  CODIGO  NUMBER(3),
+  ANTSAL  NUMBER (10,2),
+  ATUSAL  NUMBER (10,2)
+);
+
+CREATE OR REPLACE TRIGGER tr_auditor4 AFTER UPDATE ON cadfun
+FOR EACH ROW
+BEGIN
+  INSERT INTO audisalar VALUES ( 
+    SYSDATE,
+    :NEW.CODFUN,
+    :OLD.SALARIO,
+    :NEW.SALARIO 
+  );
+END;
+/
+
+SELECT * FROM cadfun WHERE CODFUN = 6;
+
+UPDATE cadfun SET SALARIO = 2100 WHERE CODFUN = 6;
+
+SELECT * FROM cadfun WHERE CODFUN = 6;
+
+SELECT * FROM audisalar;
+
+UPDATE cadfun SET SALARIO = SALARIO * 1.055 WHERE DEPTO = 4;
+
+SELECT * FROM audisalar;
+ 
+CREATE [OR REPLACE] FUNCTION <nome> ([parâmetro]) RETURN <tipo> AS | IS
+BEGIN
+  instrução(ões)
+  RETURN <valor>;
+END;
+
+CREATE OR REPLACE FUNCTION sf_fat(N IN INT) RETURN INT IS
+  Fator INT;
+  I INT;
+BEGIN
+  Fator := 1;
+  I := 1;
+  IF (N <= 1) THEN
+    RETURN Fator;
+  ELSE
+    WHILE (I <= N) LOOP
+      Fator := Fator * I; 
+      I := I + 1;
+    END LOOP;
+  END IF;
+  RETURN Fator;
+END;
+/
+
+SELECT sf_fat(5) FROM dual;
+  
+CREATE FUNCTION sf_raiz(Base IN REAL, Indice IN REAL) RETURN REAL IS
+  Valor REAL;
+BEGIN
+  Valor := POWER(Base, 1 / Indice);
+  RETURN Valor;
+END;
+/
+
+SELECT sf_raiz(25,2) FROM dual;
+
+SELECT sf_raiz(25,3) FROM dual;
+

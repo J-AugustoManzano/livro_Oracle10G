@@ -1,0 +1,10 @@
+O conjunto de aquivos "ScriptCapXX" possuem os códigos utilizados
+para a demosntração das aplicações dos exercícios de aprendizagem
+da obra. Estão sendo disponibilizados para auxiliar a verificação
+de uso ou para copiar alguma instrução para teste.
+
+Segue também o arquivo "venda.sql" desenvolvido no capítulo 6.
+
+O arquivo "gabarito.doc" contém as respostas dos exercícios de 
+fixação. Somente o use após resolver os exercícios como 
+verificação.
